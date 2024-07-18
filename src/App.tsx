@@ -58,14 +58,14 @@ function App() {
   const [reload, setReload] = useState(false);
 
   useEffect(()=>{
-    fetch('http://127.0.0.1:8000/api/employees/')
+    fetch('http://184.72.115.206:8000/api/employees/')
     .then(response => response.json())
     .then(data => setEmployees(data))
     .catch(e => console.log(e))
   },[reload])
 
   const handleSubmit = (values: any) => {
-    fetch('http://127.0.0.1:8000/api/employees/', {
+    fetch('http://184.72.115.206:8000/api/employees/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ function App() {
   }
 
   const handleView = (id: number) => {
-    fetch(`http://127.0.0.1:8000/api/employees/${id}/`)
+    fetch(`http://184.72.115.206:8000/api/employees/${id}/`)
     .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -102,7 +102,7 @@ function App() {
   }
 
   const handleDelete = (id: number) => {
-    fetch(`http://127.0.0.1:8000/api/employees/${id}`, {
+    fetch(`http://184.72.115.206:8000/api/employees/${id}`, {
       method: 'DELETE'
     })
       .then(response => {
@@ -141,7 +141,7 @@ function App() {
 
   const handleUpdateEmployee = (values: any, e: any) => {
     e.preventDefault();
-    fetch(`http://127.0.0.1:8000/api/employees/${selectedemployee?.id}/`, {
+    fetch(`http://184.72.115.206:8000/api/employees/${selectedemployee?.id}/`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
@@ -183,9 +183,6 @@ function App() {
         showModal: true,
         type: "add"
       })}/>
-      {employees.length === 0 ? 
-      <h1 className='flex items-center justify-center'>No employees, create one</h1> :
-      <>
       <Toast
         showToast={toasts.showToast}
         toastMessage={toasts.toastMessage}
@@ -296,7 +293,6 @@ function App() {
 
       </div>
       </Modal>}
- 
       {(modal.type==="edit" && modal.showModal === true && selectedemployee) && 
       <Modal onRequestClose={()=>setModal({
         showModal: false,
@@ -381,6 +377,8 @@ function App() {
       </Formik>
     </Modal>
       }
+      {employees.length===0 ? 
+      <h1 className='flex flex-col items-center justify-center'>No employees, create one</h1> : 
       <table className='border border-collapse p-2 mx-10'>
         <thead className='border border-collapse  p-2 bg-[#686D76] text-white'>
           <tr>
@@ -416,7 +414,7 @@ function App() {
     ))}
     </tbody>
       </table>
-      </>}
+}
     </div>
   );
 }
